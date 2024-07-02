@@ -1,0 +1,13 @@
+{
+    "Servers": {
+        "1": {
+            "Name": "Rust Database",
+            "Group": "Servers",
+            "Port": 5432,
+            "Username": "root",
+            "Host": "host.docker.internal",
+            "SSLMode": "prefer",
+            "MaintenanceDB": "postgres"
+        }
+    }
+}

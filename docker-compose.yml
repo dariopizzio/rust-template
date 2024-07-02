@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: rust_database
+      POSTGRES_USER: root
+      # TODO pass
+      POSTGRES_PASSWORD: root
+    volumes:
+      - pg-data:/var/lib/postgresql/data 
+    networks:
+      - pgadmin
+      
+  pgadmin:
+    depends_on:
+      - db
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - "8090:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: root@root.io
+      PGADMIN_DEFAULT_PASSWORD: root
+    volumes:
+      - ./pgadmin4/servers.json:/pgadmin4/servers.json
+      - ./pgadmin4/pgpass:/pgadmin4/pgpass
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - pgadmin
+
+networks:
+  pgadmin:
+
+volumes:
+  pg-data:
+  pgadmin-data:
