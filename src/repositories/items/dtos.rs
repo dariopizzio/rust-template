@@ -1,7 +1,10 @@
 use diesel::prelude::*;
 use serde::Serialize;
 
-use crate::{controllers::CreateItemRequest, repositories::items::Item};
+use crate::{
+    controllers::{CreateItemRequest, UpdateItemRequest},
+    repositories::items::Item,
+};
 
 #[derive(Serialize, Queryable, Selectable)]
 #[diesel(table_name = crate::schema::items)]
@@ -41,6 +44,14 @@ impl From<CreateItemRequest> for CreateItemDto {
 #[derive(Serialize, Insertable)]
 #[diesel(table_name = crate::schema::items)]
 pub struct UpdateItemDto {
-    pub id: i32,
     pub item_name: String,
+}
+
+// TODO move
+impl From<UpdateItemRequest> for UpdateItemDto {
+    fn from(value: UpdateItemRequest) -> Self {
+        UpdateItemDto {
+            item_name: value.item_name,
+        }
+    }
 }

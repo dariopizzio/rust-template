@@ -17,7 +17,7 @@ pub async fn post_item(
         .create_item(payload)
         .await
         .map_err(|e| {
-            eprint!("There was an error: {e:?}");
+            eprint!("There was an error creating the item: {e:?}");
             ApiError::UnknownError
         })?;
 

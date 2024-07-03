@@ -45,6 +45,22 @@ impl ItemsRepository for ItemsRepositoryImpl {
         }
     }
 
+    async fn get_all(&self) -> Result<Vec<Item>, RepositoryError> {
+        let conn = self.get_connection().await?;
+
+        let result = conn
+            .interact(move |conn| items.select(ItemDto::as_select()).get_results(conn))
+            .await
+            .map_err(|_e| RepositoryError::UnknownError)?
+            .map_err(|e| RepositoryError::DatabaseError(anyhow::anyhow!(e)))?;
+
+        let result = result
+            .into_iter()
+            .map(|item| item.into())
+            .collect::<Vec<Item>>();
+        Ok(result)
+    }
+
     async fn create(&self, item: CreateItemDto) -> Result<Item, RepositoryError> {
         let conn = self.get_connection().await?;
 
@@ -62,11 +78,11 @@ impl ItemsRepository for ItemsRepositoryImpl {
         Ok(result.into())
     }
 
-    async fn update(&self, item: UpdateItemDto) -> Result<(), RepositoryError> {
+    async fn update(&self, id: i32, item: UpdateItemDto) -> Result<(), RepositoryError> {
         let conn = self.get_connection().await?;
 
         conn.interact(move |conn| {
-            diesel::update(items.find(item.id))
+            diesel::update(items.find(id))
                 .set(itemsSchema::item_name.eq(item.item_name))
                 .execute(conn)
         })

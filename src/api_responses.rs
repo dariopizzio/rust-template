@@ -8,7 +8,7 @@ use serde_json::Value;
 
 pub enum ApiResponse {
     Ok(Json<Value>),
-    OkWithoutBody,
+    NoContent,
     Created(String),
 }
 
@@ -21,7 +21,7 @@ impl IntoResponse for ApiResponse {
     fn into_response(self) -> Response {
         match self {
             Self::Ok(data) => (StatusCode::OK, data).into_response(),
-            Self::OkWithoutBody => (StatusCode::OK).into_response(),
+            Self::NoContent => (StatusCode::NO_CONTENT).into_response(),
             Self::Created(resource_location) => Response::builder()
                 .status(204)
                 .header("Location", resource_location)
