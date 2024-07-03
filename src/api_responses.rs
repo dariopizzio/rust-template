@@ -23,7 +23,7 @@ impl IntoResponse for ApiResponse {
             Self::Ok(data) => (StatusCode::OK, data).into_response(),
             Self::NoContent => (StatusCode::NO_CONTENT).into_response(),
             Self::Created(resource_location) => Response::builder()
-                .status(204)
+                .status(StatusCode::CREATED)
                 .header("Location", resource_location)
                 .body(Body::empty())
                 .unwrap(), // TODO refactor

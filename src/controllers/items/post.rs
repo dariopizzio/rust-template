@@ -21,7 +21,7 @@ pub async fn post_item(
             ApiError::UnknownError
         })?;
 
-    let resource_location = format!("/item/{}", item.id);
+    let resource_location = format!("/api/v1/item/{}", item.id);
 
     Ok(ApiResponse::Created(resource_location))
 }

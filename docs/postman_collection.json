@@ -1,0 +1,144 @@
+{
+	"info": {
+		"_postman_id": "ac31ef43-53bc-49d1-9724-4ac21e8b1d3b",
+		"name": "Rust template",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9385997"
+	},
+	"item": [
+		{
+			"name": "Get Item",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{env}}/api/v1/item/{{item_id}}",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"item",
+						"{{item_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Item",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"item_name\": \"some-item-name\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{env}}/api/v1/item",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"item"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Item",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"item_name\": \"updated-item-name\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{env}}/api/v1/item/{{item_id}}/name",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"item",
+						"{{item_id}}",
+						"name"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Item",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{env}}/api/v1/item/{{item_id}}",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"item",
+						"{{item_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Items",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{env}}/api/v1/item",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"item"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{env}}/health",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
