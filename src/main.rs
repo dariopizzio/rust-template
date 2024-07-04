@@ -1,10 +1,11 @@
 use bootstrap::get_app_state;
+use config::Config;
 use database::get_connection_pool;
-use dotenvy::dotenv;
 use routes::init_router;
 
 mod api_responses;
 mod bootstrap;
+mod config;
 mod controllers;
 mod database;
 mod health;
@@ -16,9 +17,9 @@ mod services;
 
 #[tokio::main]
 async fn main() {
-    dotenv().ok();
+    let config = Config::init();
 
-    let db_pool = get_connection_pool();
+    let db_pool = get_connection_pool(&config);
     let app_state = get_app_state(db_pool);
 
     let router = init_router(app_state);
