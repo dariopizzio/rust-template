@@ -1,7 +1,7 @@
 # rust-template
-Rust template for REST APIs
+Rust template for REST APIs using Axum and Diesel
 
-# Brew install (Check)
+## How to install Postgres & DieselCli (Brew)
 brew install libpq
 brew install postgresql
 cargo install diesel_cli --no-default-features --features postgres
@@ -32,20 +32,12 @@ If not
 cargo run
 ```
 
+## Curl Example
+
 curl -i --location 'localhost:8080/item/1'
 
-curl --location 'localhost:8080/item' \
---header 'Content-Type: application/json' \
---data '{"item_name": "item"}'
-
-------------------
-
-Missing features:
-Tracing
-CQRS
-Middleware authentication
-Infra -> terraform
-Rust macros
-Add postman collection
-Tests
-Graphql
+## Missing features/improvements
+- Tests/Code Documentation
+- Tracing/Logging
+- Graphql (Optional)
+- Infrastructure for AWS using Terraform

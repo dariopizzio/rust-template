@@ -26,7 +26,7 @@ impl IntoResponse for ApiResponse {
                 .status(StatusCode::CREATED)
                 .header("Location", resource_location)
                 .body(Body::empty())
-                .unwrap(), // TODO refactor
+                .unwrap(), // TODO fix
         }
     }
 }

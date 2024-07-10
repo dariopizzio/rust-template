@@ -9,7 +9,6 @@ use crate::{
 use super::errors::ServiceError;
 
 pub trait ItemsService {
-    // TODO check if it's not better to have references as arguments
     async fn get_item(&self, id: i32) -> Result<Option<Item>, ServiceError>;
 
     async fn get_all_items(&self) -> Result<Vec<Item>, ServiceError>;
