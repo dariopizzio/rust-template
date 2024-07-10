@@ -2,9 +2,11 @@
 Rust template for REST APIs using Axum and Diesel
 
 ## How to install Postgres & DieselCli (Brew)
+```bash
 brew install libpq
 brew install postgresql
 cargo install diesel_cli --no-default-features --features postgres
+```
 
 ## Diesel Setup
 ```bash
@@ -12,11 +14,12 @@ diesel setup
 diesel migration generate --diff-schema items
 ```
 
-Useful commands:
+### Diesel useful commands
 ```bash
 diesel migration run
 diesel migration redo
 ```
+
 ## How to run the docker containers
 ```bash
 docker-compose up
