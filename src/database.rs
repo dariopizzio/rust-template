@@ -8,5 +8,7 @@ pub fn get_connection_pool(config: &Config) -> Pool {
         deadpool_diesel::Runtime::Tokio1,
     );
 
-    Pool::builder(manager).build().unwrap()
+    Pool::builder(manager)
+        .build()
+        .expect("There was an error building the DB pool")
 }

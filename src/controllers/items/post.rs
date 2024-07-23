@@ -8,6 +8,7 @@ use crate::{
 
 use super::dtos::CreateItemRequest;
 
+#[tracing::instrument(skip(state))]
 pub async fn post_item(
     State(state): State<AppState>,
     Json(payload): Json<CreateItemRequest>,
@@ -17,7 +18,7 @@ pub async fn post_item(
         .create_item(payload)
         .await
         .map_err(|e| {
-            eprint!("There was an error creating the item: {e:?}");
+            tracing::error!("There was an error creating the item: {e:?}");
             ApiError::UnknownError
         })?;
 

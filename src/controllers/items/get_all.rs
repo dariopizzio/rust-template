@@ -9,9 +9,10 @@ use crate::{
 
 use super::dtos::GetItemResponse;
 
+#[tracing::instrument(skip(state))]
 pub async fn get_all_items(State(state): State<AppState>) -> Result<ApiResponse, ApiError> {
     let items = state.items_service.get_all_items().await.map_err(|e| {
-        eprint!("There was an error getting all items: {e:?}");
+        tracing::error!("There was an error getting all items: {e:?}");
         ApiError::UnknownError
     })?;
 

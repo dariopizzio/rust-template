@@ -1,6 +1,7 @@
 use bootstrap::get_app_state;
 use config::Config;
 use database::get_connection_pool;
+use logging::init_tracing;
 use routes::init_router;
 
 mod api_responses;
@@ -9,6 +10,7 @@ mod config;
 mod controllers;
 mod database;
 mod health;
+mod logging;
 mod models;
 mod repositories;
 mod routes;
@@ -17,6 +19,7 @@ mod services;
 
 #[tokio::main]
 async fn main() {
+    init_tracing();
     let config = Config::init();
 
     let db_pool = get_connection_pool(&config);
@@ -24,6 +27,11 @@ async fn main() {
 
     let router = init_router(app_state);
 
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:8080").await.unwrap();
-    axum::serve(listener, router).await.unwrap();
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:8080")
+        .await
+        .expect("There was an error starting the application");
+
+    axum::serve(listener, router)
+        .await
+        .expect("There was an error starting the application");
 }

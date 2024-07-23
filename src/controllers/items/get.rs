@@ -12,12 +12,13 @@ use crate::{
 
 use super::dtos::GetItemResponse;
 
+#[tracing::instrument(skip(state))]
 pub async fn get_item(
     State(state): State<AppState>,
     Path(id): Path<i32>,
 ) -> Result<ApiResponse, ApiError> {
     let item = state.items_service.get_item(id).await.map_err(|e| {
-        eprint!("There was an error getting the item: {e:?}");
+        tracing::error!("There was an error getting the item: {e:?}");
         ApiError::UnknownError
     })?;
 

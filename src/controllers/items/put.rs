@@ -11,6 +11,7 @@ use crate::{
 
 use super::dtos::UpdateItemRequest;
 
+#[tracing::instrument(skip(state))]
 pub async fn put_item(
     State(state): State<AppState>,
     Path(id): Path<i32>,
@@ -21,7 +22,7 @@ pub async fn put_item(
         .update_item(id, payload)
         .await
         .map_err(|e| {
-            eprint!("There was an error updating the item: {e:?}");
+            tracing::error!("There was an error updating the item with id: {id} - {e:?}");
             ApiError::UnknownError
         })?;
 
